@@ -1,0 +1,52 @@
+<p>requirement-form works!</p>
+debug:{{ fg.value | json}}
+<hr>
+<div class="w-50">
+    
+    <!-- <form [formGroup]="fg"> -->
+
+        <!-- *กด Eter แล้ว เรียก เรียก post เลย -->
+        <form [formGroup]="fg" (ngSubmit)="onSubmit()"> 
+
+        <div class="">
+             <!-- <label for="title">Title :</label> -->
+             <label class="form-control-label" for="title">Title :</label>
+            <input class="form-control" 
+                [class.is-invalid]="title.errors && title.touched"  
+                formControlName="title" 
+                id ="title"  
+                type="text"
+            />
+            <small class ="invalid-feedback">Title is required</small>
+        </div>
+
+        <div class="mt-3">
+            <label class="form-control-label"for="contactMobileNo">Contact Mobile No : </label>
+            <!-- <input formControlName="contactMobileNo" id ="contactMobileNo"  type="text"> -->
+            <input class="form-control"  
+                [ngClass]="{'is-invalid': contactMobileNo.errors && contactMobileNo.touched}"
+                formControlName="contactMobileNo" 
+                id ="contactMobileNo" 
+                type="text"
+                maxlength=""
+             />
+             <small class ="invalid-feedback">
+                <!-- {{contactMobileNo.errors | json}} -->
+                @if (contactMobileNo.hasError('required')){
+                    Contact Mobile No is required
+                }@else if (contactMobileNo.hasError('thMobile')){
+                    Contact Mobile should be Thai mobile
+                }
+            
+            </small>
+           
+        </div>
+
+        <div class="mt-3 d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
+            <!-- <button (click)="onSubmit()">Submit</button> -->
+            <button [disabled]="!fg.valid" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+

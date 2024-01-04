@@ -1,0 +1,55 @@
+<h2>{{'requirement-entry works!' | uppercase}}</h2>
+
+debug:{{ searchBox.value}}
+<hr>
+    <!--  * binding in inpul -->
+    <input type="text" 
+        [formControl]="searchBox" 
+        placeholder="search..."
+     />
+<hr>
+    <input type ="checkbox"
+        [(ngModel)]="isSmallTable" 
+         id = "isSmallTable" 
+    />
+    <label for="isSmallTable">
+        Show / Hide Small Table
+    </label>
+
+<hr>
+    <button routerLink="add">
+        Add
+    </button>
+
+<hr>
+<table class="table" [class.table-sm] = "isSmallTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Contact Mobile No</th>
+        </tr>
+    </thead>
+    <tbody>
+    <!-- @for(req of reqs | async; track req.id){ -->
+    <!-- @for(req of reqs(); track req.id){ -->
+    <!-- @for(req of reqs; track req.id){ -->
+        @for(req of filtered; track req.id){
+        <tr>
+            <td routerLink="edit/{{req.id}}">
+                <i class="bi bi-pencil"></i>
+            </td>
+            <td>{{req.id}}</td>
+            <td>{{req.title}}</td>
+            <td>{{req.contactMobileNo | mobileFormat}}</td>
+        </tr>
+      }
+      @empty {
+        <tr>
+            <td class="text-center" colspan="3">Empty List</td>
+        </tr>
+      }
+       
+    </tbody>
+</table>
